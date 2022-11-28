@@ -1,31 +1,12 @@
 <?php
-// include_once __DIR__ . "/functions.php";
+session_start();
 
 $desired_length = $_GET["text-psw"] ?? "";
 var_dump($desired_length);
-function generatePassword($desired_length)
-{
 
-    $password = '';
-    $length = 0;
-
-    while ($length < $desired_length) {
-        $length += 1;
-        $type = rand(1, 3);
-        if ($type == 1) {
-            $password .= chr(rand(33, 64)); //numeri e caratteri speciali
-
-        } elseif ($type == 2) {
-            $password .= chr(rand(65, 90)); //A->Z
-
-        } else {
-            $password .= chr(rand(97, 122)); //a->z
-
-        }
-    }
-    return $password;
-    echo $password;
-    var_dump($password);
+if ($desired_length) {
+    $_SESSION["lenght"] = $desired_length;
+    header("Location: ./hereYourPsw.php");
 }
 ?>
 <!DOCTYPE html>
@@ -50,11 +31,10 @@ function generatePassword($desired_length)
 
                     <button class="btn btn-primary" type="submit">Invia</button>
                     <button class="btn btn-secondary" type="reset">Annulla</button>
+
                 </div>
             </form>
-            <div class="password">
-                <p>la tua !strong password è: <?php echo generatePassword($desired_length) ?></p>
-            </div>
+
         </div>
     </div>
 </body>
